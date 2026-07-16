@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.2.0 — 2026-07-16
+
+### Motion Intelligence
+
+- contratos whole-body para corpo, mãos, pés e pontos faciais;
+- métricas transparentes de ângulo, amplitude, trajetória, jerk, diferença bilateral e inclinação do tronco;
+- controle de qualidade por região corporal, oclusão, frames perdidos e confiança de atribuição;
+- ontologia temporal `setup`, `entry`, `control`, `transition`, `completion` e `recovery`;
+- estabilização de fase por threshold e confirmações consecutivas;
+- configuração em camadas para RTMW/RTMO, Pose2Sim, OpenSim, MMAction2 e MotionBERT;
+- matriz de adoção de repositórios e separação explícita entre núcleo, referência e laboratório experimental;
+- testes unitários para biomecânica, fases técnicas e quality gates.
+
+### Governança
+
+- ferramentas de identificação facial não entram no caminho operacional;
+- localização da região facial permanece restrita à redação visual e estudos separados;
+- modelos pesados e licenças restritivas continuam desacoplados do pacote principal.
+
 ## 0.1.0 — 2026-07-16
 
 ### Adicionado
