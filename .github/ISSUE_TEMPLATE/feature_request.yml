@@ -1,0 +1,19 @@
+name: Propor melhoria
+about: Sugira uma melhoria técnica ou científica
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposta
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Como validar com segurança

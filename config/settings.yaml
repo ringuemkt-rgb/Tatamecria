@@ -1,0 +1,46 @@
+project:
+  name: NeuroJitsu Analytics
+  version: 0.1.0
+  language: pt-BR
+
+runtime:
+  mode: synthetic
+  timezone: Asia/Shanghai
+  random_seed: 42
+  persist_redacted_video: false
+  raw_video_persistence: forbidden
+
+session:
+  duration_minutes: 60
+  phases:
+    - name: warm_up
+      start_minute: 0
+      end_minute: 10
+    - name: technical_drills
+      start_minute: 10
+      end_minute: 35
+    - name: cooperative_games
+      start_minute: 35
+      end_minute: 50
+    - name: cool_down
+      start_minute: 50
+      end_minute: 60
+
+quality:
+  minimum_valid_landmark_ratio: 0.60
+  minimum_metric_confidence: 0.65
+  maximum_identity_uncertain_seconds: 30
+  maximum_missing_window_ratio: 0.20
+
+privacy:
+  face_redaction_required: true
+  store_raw_frames: false
+  store_redacted_frames: false
+  participant_codes_only: true
+  audit_every_read: true
+  synthetic_unencrypted_allowed: true
+
+reports:
+  compare_previous_sessions: 4
+  include_diagnostic_language: false
+  require_professional_review: true

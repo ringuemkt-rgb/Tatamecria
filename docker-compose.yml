@@ -1,0 +1,25 @@
+services:
+  api:
+    build: .
+    command: uvicorn neurojitsu.api.main:app --host 0.0.0.0 --port 8000
+    environment:
+      NEUROJITSU_CONFIG: /app/config/settings.yaml
+      NEUROJITSU_DB_PATH: /app/data/neurojitsu.db
+      NEUROJITSU_ALLOW_UNENCRYPTED_SYNTHETIC_ONLY: "true"
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+    ports:
+      - "8000:8000"
+
+  dashboard:
+    build: .
+    command: streamlit run src/neurojitsu/dashboard/app.py --server.address=0.0.0.0
+    environment:
+      NEUROJITSU_CONFIG: /app/config/settings.yaml
+      NEUROJITSU_DB_PATH: /app/data/neurojitsu.db
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+    ports:
+      - "8501:8501"

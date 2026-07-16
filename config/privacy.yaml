@@ -1,0 +1,29 @@
+data_classes:
+  identity_map:
+    sensitivity: critical
+    storage: separate_encrypted_database
+  redacted_video:
+    sensitivity: high
+    storage: disabled_by_default
+  landmarks:
+    sensitivity: high
+    storage: encrypted_database
+  physiology:
+    sensitivity: high
+    storage: encrypted_database
+  aggregate_metrics:
+    sensitivity: medium
+    storage: encrypted_database
+
+retention:
+  raw_frames_seconds: 0
+  redacted_video_days: 0
+  pseudonymized_metrics_days: 364
+  audit_log_days: 730
+
+prohibited:
+  - facial_recognition
+  - emotion_inference_from_face
+  - diagnostic_classification
+  - automatic_meltdown_prediction_without_validation
+  - storing_real_participant_data_in_plain_sqlite

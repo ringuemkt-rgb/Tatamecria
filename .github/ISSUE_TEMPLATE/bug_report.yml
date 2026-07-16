@@ -1,0 +1,22 @@
+name: Relatar falha
+about: Informe um problema reproduzível sem dados pessoais
+body:
+  - type: markdown
+    attributes:
+      value: "Não anexe imagens, vídeos, nomes ou dados clínicos reais."
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Passos para reproduzir
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Versão/commit

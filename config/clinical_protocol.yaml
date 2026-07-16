@@ -1,0 +1,26 @@
+protocol_name: NeuroJitsu Motor Intervention Support
+version: 0.1.0-research
+
+allowed_observations:
+  - active_participation
+  - task_attempt
+  - task_completion
+  - voluntary_pause
+  - instructor_assistance
+  - zone_entry
+  - zone_exit
+  - signal_quality
+
+support_options:
+  - maintain_activity_and_observe
+  - reduce_task_complexity
+  - offer_voluntary_pause
+  - allow_observation_without_participation
+  - consult_child_preference
+  - end_activity_by_professional_decision
+
+forbidden_automated_claims:
+  - diagnosed_overload
+  - predicted_meltdown_time
+  - emotional_state_from_camera
+  - clinical_normality_from_pose
