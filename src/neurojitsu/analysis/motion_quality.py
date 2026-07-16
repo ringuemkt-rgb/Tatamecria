@@ -16,7 +16,16 @@ class MotionQualityInput:
     dropped_frame_ratio: float
 
     def __post_init__(self) -> None:
-        for name, value in vars(self).items():
+        values: tuple[tuple[str, float], ...] = (
+            ("body_valid_ratio", self.body_valid_ratio),
+            ("hand_valid_ratio", self.hand_valid_ratio),
+            ("foot_valid_ratio", self.foot_valid_ratio),
+            ("detector_confidence", self.detector_confidence),
+            ("occlusion_ratio", self.occlusion_ratio),
+            ("identity_confidence", self.identity_confidence),
+            ("dropped_frame_ratio", self.dropped_frame_ratio),
+        )
+        for name, value in values:
             if not 0.0 <= value <= 1.0:
                 raise ValueError(f"{name} must be between 0 and 1")
 
