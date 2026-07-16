@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import acos, degrees
+from typing import cast
 
 import numpy as np
 from numpy.typing import NDArray
@@ -21,8 +22,12 @@ class MetricEstimate:
     reason_invalid: str | None = None
 
 
+def _float_array(values: object) -> FloatArray:
+    return cast(FloatArray, np.asarray(values, dtype=np.float64))
+
+
 def _as_point(point: FloatArray | list[float] | tuple[float, ...]) -> FloatArray:
-    array = np.asarray(point, dtype=np.float64)
+    array = _float_array(point)
     if array.ndim != 1 or array.size not in {2, 3}:
         raise ValueError("point must contain two or three coordinates")
     return array
@@ -48,7 +53,7 @@ def joint_angle(
 def range_of_motion(values: FloatArray | list[float], confidence: float = 1.0) -> MetricEstimate:
     """Return max-min after removing non-finite samples."""
 
-    array = np.asarray(values, dtype=np.float64)
+    array = _float_array(values)
     finite = array[np.isfinite(array)]
     if finite.size < 2:
         return MetricEstimate("range_of_motion", None, "deg", 0.0, False, "insufficient samples")
@@ -60,10 +65,10 @@ def range_of_motion(values: FloatArray | list[float], confidence: float = 1.0) -
 def path_length(points: FloatArray | list[list[float]], confidence: float = 1.0) -> MetricEstimate:
     """Compute cumulative Euclidean trajectory length."""
 
-    array = np.asarray(points, dtype=np.float64)
+    array = _float_array(points)
     if array.ndim != 2 or array.shape[0] < 2:
         return MetricEstimate("path_length", None, "coordinate", 0.0, False, "insufficient samples")
-    if not np.all(np.isfinite(array)):
+    if not bool(np.all(np.isfinite(array))):
         return MetricEstimate("path_length", None, "coordinate", 0.0, False, "non-finite samples")
     value = float(np.linalg.norm(np.diff(array, axis=0), axis=1).sum())
     return MetricEstimate("path_length", value, "coordinate", confidence, True)
@@ -78,15 +83,15 @@ def normalized_jerk(
     not a clinical diagnosis.
     """
 
-    array = np.asarray(positions, dtype=np.float64)
+    array = _float_array(positions)
     if sample_rate_hz <= 0:
         raise ValueError("sample_rate_hz must be positive")
-    if array.ndim != 2 or array.shape[0] < 5 or not np.all(np.isfinite(array)):
+    if array.ndim != 2 or array.shape[0] < 5 or not bool(np.all(np.isfinite(array))):
         return MetricEstimate("normalized_jerk", None, "a.u.", 0.0, False, "insufficient trajectory")
     dt = 1.0 / sample_rate_hz
-    velocity = np.gradient(array, dt, axis=0)
-    acceleration = np.gradient(velocity, dt, axis=0)
-    jerk = np.gradient(acceleration, dt, axis=0)
+    velocity = _float_array(np.gradient(array, dt, axis=0))
+    acceleration = _float_array(np.gradient(velocity, dt, axis=0))
+    jerk = _float_array(np.gradient(acceleration, dt, axis=0))
     duration = (array.shape[0] - 1) * dt
     amplitude = float(np.linalg.norm(array[-1] - array[0]))
     if amplitude <= 1e-9:
@@ -101,12 +106,12 @@ def bilateral_difference(
 ) -> MetricEstimate:
     """Mean absolute bilateral difference normalized by pooled magnitude."""
 
-    left_arr = np.asarray(left, dtype=np.float64)
-    right_arr = np.asarray(right, dtype=np.float64)
+    left_arr = _float_array(left)
+    right_arr = _float_array(right)
     if left_arr.shape != right_arr.shape or left_arr.size == 0:
         return MetricEstimate("bilateral_difference", None, "%", 0.0, False, "shape mismatch")
     mask = np.isfinite(left_arr) & np.isfinite(right_arr)
-    if mask.sum() < 2:
+    if int(mask.sum()) < 2:
         return MetricEstimate("bilateral_difference", None, "%", 0.0, False, "insufficient paired samples")
     numerator = float(np.mean(np.abs(left_arr[mask] - right_arr[mask])))
     denominator = float(np.mean((np.abs(left_arr[mask]) + np.abs(right_arr[mask])) / 2.0))
