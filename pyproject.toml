@@ -84,6 +84,8 @@ warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
 module = [
+  "cv2",
+  "cv2.*",
   "mediapipe.*",
   "supervision.*",
   "neurokit2.*",
