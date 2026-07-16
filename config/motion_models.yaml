@@ -1,0 +1,38 @@
+version: 2
+
+real_time_pose:
+  preferred_backend: rtmw_2d_wholebody
+  fallback_backend: mediapipe_pose
+  multi_person_backend: rtmo
+  inference_mode: external_service
+  minimum_body_confidence: 0.70
+  minimum_hand_confidence: 0.75
+  maximum_occlusion_ratio_for_fine_analysis: 0.20
+  output_schema: neurojitsu_wholebody_v1
+
+three_dimensional_validation:
+  preferred_workflow: pose2sim_opensim
+  reference_capture: freemocap
+  minimum_cameras: 3
+  recommended_cameras: 4
+  synchronize_cameras: true
+  calibrate_each_room: true
+  persist_original_video: false
+
+motion_understanding:
+  action_framework: mmaction2
+  primary_representation: skeleton_sequence
+  candidate_models:
+    - posec3d
+    - stgcn_plus_plus
+    - ctrgcn
+  temporal_encoder_optional: motionbert_lite
+  custom_dataset_required: true
+  split_strategy: participant_and_session
+
+experimental_only:
+  - wham
+  - hmr2_4dhumans
+  - opencap_monocular
+  - monomsk
+  - wifi_csi_pose
