@@ -34,7 +34,7 @@ class FaceRedactor:
         except ImportError as exc:  # pragma: no cover - optional dependency
             raise RuntimeError("OpenCV is required for face redaction") from exc
         if self._cascade is None:
-            cascade_path = cv2.data.haarcascades + "haarcascade_frontalface_default.xml"  # type: ignore[attr-defined]
+            cascade_path = cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
             cascade = cv2.CascadeClassifier(cascade_path)
             if cascade.empty():
                 raise RuntimeError("OpenCV face cascade could not be loaded")
