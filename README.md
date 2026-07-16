@@ -19,13 +19,35 @@ Plataforma local, modular e orientada à pesquisa para analisar sessões de Jiu-
 - API FastAPI local;
 - dashboard Streamlit em modo escuro com botão de pausa sensorial;
 - adaptador opcional para MediaPipe Tasks;
-- adaptadores opcionais para Roboflow Supervision e RuView/WiFi-CSI.
+- adaptadores opcionais para Roboflow Supervision e RuView/WiFi-CSI;
+- contratos whole-body para corpo, mãos, pés e pontos faciais;
+- métricas de ângulo, amplitude, trajetória, suavidade, simetria e tronco;
+- qualidade separada para corpo, mãos, pés, oclusão e frames perdidos;
+- ontologia temporal de técnica com estabilização por histerese.
+
+## Motion Intelligence v2
+
+A camada avançada organiza a análise em três níveis:
+
+```text
+Tempo real: RTMW/RTMO → trajetórias 2D → qualidade → painel
+Referência: câmeras sincronizadas → Pose2Sim → OpenSim → cinemática 3D
+Temporal: sequências de esqueleto → MMAction2/MotionBERT → fases técnicas
+```
+
+As fases técnicas canônicas são:
+
+```text
+setup → entry → control → transition → completion → recovery
+```
+
+Backends pesados ficam em serviços opcionais. O núcleo continua executável sem GPU e sem depender de um único modelo externo.
 
 ## Instalação rápida
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 python -m pip install --upgrade pip
 pip install -e ".[dev,api,dashboard]"
 ```
@@ -87,13 +109,13 @@ A chave nunca deve ser salva no repositório.
 ```text
 Frame volátil
    ↓
-localização facial
+localização facial para redação visual
    ↓
-redação visual
+frame redigido
    ↓
-pose no frame redigido
+pose corporal e whole-body
    ↓
-landmarks + qualidade
+landmarks + qualidade + oclusão
    ↓
 nenhum frame original persistido
 ```
@@ -105,6 +127,8 @@ O backend MediaPipe exige um modelo `.task` externo, controlado por `NEUROJITSU_
 Consulte:
 
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+- [`docs/MOTION_ANALYSIS_STACK.md`](docs/MOTION_ANALYSIS_STACK.md)
+- [`docs/MOTION_REPOSITORY_REVIEW.md`](docs/MOTION_REPOSITORY_REVIEW.md)
 - [`docs/REPOSITORY_REVIEW.md`](docs/REPOSITORY_REVIEW.md)
 - [`docs/DATA_GOVERNANCE.md`](docs/DATA_GOVERNANCE.md)
 - [`docs/VALIDATION_PLAN.md`](docs/VALIDATION_PLAN.md)
@@ -120,4 +144,4 @@ mypy src/neurojitsu
 
 ## Licença
 
-MIT para o código próprio. Pesos de modelos, datasets e dependências conservam suas próprias licenças. O modelo experimental `ruvnet/wifi-densepose-mmfi-pose`, por exemplo, não deve ser tratado como equivalente a uma dependência MIT do projeto.
+MIT para o código próprio. Pesos de modelos, datasets e dependências conservam suas próprias licenças. Modelos experimentais ou pesos com restrições não devem ser redistribuídos automaticamente com o NeuroJitsu.
