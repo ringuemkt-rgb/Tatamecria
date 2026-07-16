@@ -19,7 +19,9 @@ Plataforma local, modular e orientada à pesquisa para analisar sessões de Jiu-
 - API FastAPI local;
 - dashboard Streamlit em modo escuro com botão de pausa sensorial;
 - adaptador opcional para MediaPipe Tasks;
-- adaptadores opcionais para Roboflow Supervision e RuView/WiFi-CSI;
+- barramento Roboflow Supervision para `Detections`, `KeyPoints`, zonas e metadados;
+- eventos determinísticos de entrada, permanência e saída nas zonas;
+- adaptador experimental RuView/WiFi-CSI;
 - contratos whole-body para corpo, mãos, pés e pontos faciais;
 - métricas de ângulo, amplitude, trajetória, suavidade, simetria e tronco;
 - qualidade separada para corpo, mãos, pés, oclusão e frames perdidos;
@@ -30,7 +32,7 @@ Plataforma local, modular e orientada à pesquisa para analisar sessões de Jiu-
 A camada avançada organiza a análise em três níveis:
 
 ```text
-Tempo real: RTMW/RTMO → trajetórias 2D → qualidade → painel
+Tempo real: detector/pose → Supervision → Trackers → trajetórias 2D → qualidade → painel
 Referência: câmeras sincronizadas → Pose2Sim → OpenSim → cinemática 3D
 Temporal: sequências de esqueleto → MMAction2/MotionBERT → fases técnicas
 ```
@@ -113,9 +115,11 @@ localização facial para redação visual
    ↓
 frame redigido
    ↓
-pose corporal e whole-body
+detecção + pose whole-body
    ↓
-landmarks + qualidade + oclusão
+Supervision Detections/KeyPoints + Trackers + zonas
+   ↓
+landmarks + eventos + qualidade + oclusão
    ↓
 nenhum frame original persistido
 ```
@@ -128,6 +132,7 @@ Consulte:
 
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 - [`docs/MOTION_ANALYSIS_STACK.md`](docs/MOTION_ANALYSIS_STACK.md)
+- [`docs/SUPERVISION_INTEGRATION.md`](docs/SUPERVISION_INTEGRATION.md)
 - [`docs/MOTION_REPOSITORY_REVIEW.md`](docs/MOTION_REPOSITORY_REVIEW.md)
 - [`docs/REPOSITORY_REVIEW.md`](docs/REPOSITORY_REVIEW.md)
 - [`docs/DATA_GOVERNANCE.md`](docs/DATA_GOVERNANCE.md)
