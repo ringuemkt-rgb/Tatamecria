@@ -35,6 +35,9 @@ GameFlowManager="*res://src/autoloads/GameFlowManager.gd"
 CutsceneRuntime="*res://src/autoloads/CutsceneRuntime.gd"
 # Novos Autoloads - Sistemas de Combate Pressão & Fluxo
 TransitionManager="*res://src/combat/transition_manager.gd"
+NavigationManager="*res://src/world/navigation_manager.gd"
+CombatVFX="*res://src/vfx/combat_vfx_manager.gd"
+CombatAudio="*res://src/audio/combat_audio_manager.gd"
 # NavigationManager será adicionado quando WorldMap for registrado como autoload
 # CombatVFX e CombatAudio serão adicionados na Fase 2 (UI/Game Feel)
 
