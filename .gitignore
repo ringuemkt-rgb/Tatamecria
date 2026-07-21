@@ -80,3 +80,5 @@ dist/
 *.tar.xz
 *.tar.zst
 ```
+!.env.example
+!.env.*.example

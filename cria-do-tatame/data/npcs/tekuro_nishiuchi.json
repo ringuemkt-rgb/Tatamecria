@@ -1,0 +1,95 @@
+{
+  "id": "tekuro_nishiuchi",
+  "name": "Tekuro Nishiuchi",
+  "role": "sensei_emerito",
+  "age": 78,
+  "description": "Sábio e calmo, guardião da memória do BJJ no Baixo Sul. Imigrou em 1953 no navio América Maru.",
+  "personality": [
+    "calmo",
+    "sábio",
+    "tradicional",
+    "protetor"
+  ],
+  "location_hub": "terreiro_da_luta",
+  "schedule": {
+    "morning": "meditação",
+    "afternoon": "ensino",
+    "evening": "histórias"
+  },
+  "dialogue_tree": {
+    "greeting": [
+      "A raiz que se aprofunda não cai com o vento...",
+      "O tatame lembra, Ruan. Cada queda, cada levante.",
+      "Você carrega o macacão com honra. Isso importa."
+    ],
+    "lore_americamaru": {
+      "trigger": "perguntar sobre imigração",
+      "lines": [
+        "1953. América Maru. Três semanas de mar.",
+        "Trouxe um quimono e uma foto de família.",
+        "O resto... o Brasil forneceu."
+      ]
+    },
+    "lore_bjj_origins": {
+      "trigger": "perguntar sobre BJJ",
+      "lines": [
+        "Conde Koma ensinou. Carlos aprendeu.",
+        "Helio adaptou. Nós preservamos.",
+        "Não é briga. É conversa de corpo."
+      ]
+    },
+    "advice_training": [
+      "Técnica sem fundamento é acrobacia.",
+      "Respire pelo nariz. Sempre.",
+      "Hoje você perde. Amanhã você estuda. Depois você vence."
+    ],
+    "advice_combat": [
+      "Não aperte. Construa posição.",
+      "Gás se acaba. Técnica fica.",
+      "Se o peito tá aberto, fecha. Se tá fechado, abre."
+    ],
+    "farewell": [
+      "O tatame te espera.",
+      "Volte quando a mente estiver leve.",
+      "Raiz forte, filho."
+    ]
+  },
+  "rewards": {
+    "perk_unlock": "legacy_perk_tekuro",
+    "item_gift": "cha_cravo_colonia",
+    "training_bonus": 0.15
+  },
+  "relationship_levels": {
+    "stranger": {
+      "threshold": 0,
+      "unlocks": ["greeting", "farewell"]
+    },
+    "acquaintance": {
+      "threshold": 25,
+      "unlocks": ["advice_training"]
+    },
+    "student": {
+      "threshold": 50,
+      "unlocks": ["lore_americamaru", "advice_combat"]
+    },
+    "disciple": {
+      "threshold": 75,
+      "unlocks": ["lore_bjj_origins"]
+    },
+    "heir": {
+      "threshold": 100,
+      "unlocks": ["perk_unlock", "item_gift"]
+    }
+  },
+  "voice_profile": {
+    "tone": "grave_calmo",
+    "pace": "lento",
+    "language": "pt-BR_com_sotaque_idoso"
+  },
+  "canon_notes": [
+    "Bisavô simbólico da comunidade Jiu-Jitsu regional",
+    "Nunca compete, apenas ensina",
+    "Guarda histórias dos pioneiros do BJJ no Baixo Sul",
+    "Referência ética para Ruan 'Macacão'"
+  ]
+}

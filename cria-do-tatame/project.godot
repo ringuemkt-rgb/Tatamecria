@@ -1,0 +1,55 @@
+; Cria do Tatame - Godot 4.2+ base
+config_version=5
+
+[application]
+config/name="Cria do Tatame - Pressao"
+config/icon="res://assets/cosmetics/nft/patch_terreiro_raiz.png"
+run/main_scene="res://scenes/main_menu/MainMenu.tscn"
+
+[autoload]
+SignalBus="*res://src/autoloads/SignalBus.gd"
+DataRegistry="*res://src/autoloads/DataRegistry.gd"
+DeckManager="*res://src/autoloads/DeckManager.gd"
+LocalAIManager="*res://src/autoloads/LocalAIManager.gd"
+WorldState="*res://src/autoloads/WorldState.gd"
+WorldDirectorManager="*res://src/autoloads/WorldDirectorManager.gd"
+NFTManager="*res://src/autoloads/NFTManager.gd"
+SaveManager="*res://src/autoloads/SaveManager.gd"
+CombatManager="*res://src/autoloads/CombatManager.gd"
+CareerLoop="*res://src/autoloads/CareerLoop.gd"
+ReputationMatrix="*res://src/autoloads/ReputationMatrix.gd"
+CriaLiveManager="*res://src/autoloads/CriaLiveManager.gd"
+AudioManager="*res://src/autoloads/AudioManager.gd"
+TinkerBondManager="*res://src/autoloads/TinkerBondManager.gd"
+MissionManager="*res://src/autoloads/MissionManager.gd"
+StorySceneDirector="*res://src/autoloads/StorySceneDirector.gd"
+FactionManager="*res://src/autoloads/FactionManager.gd"
+FactionDirectorManager="*res://src/autoloads/FactionDirectorManager.gd"
+FactionAIPlanBridge="*res://src/autoloads/FactionAIPlanBridge.gd"
+WorldMapManager="*res://src/autoloads/WorldMapManager.gd"
+GearManager="*res://src/autoloads/GearManager.gd"
+TrainingManager="*res://src/autoloads/TrainingManager.gd"
+HubActivityManager="*res://src/autoloads/HubActivityManager.gd"
+CriaLiveInteractionManager="*res://src/autoloads/CriaLiveInteractionManager.gd"
+GameFlowManager="*res://src/autoloads/GameFlowManager.gd"
+CutsceneRuntime="*res://src/autoloads/CutsceneRuntime.gd"
+# Novos Autoloads - Sistemas de Combate Pressão & Fluxo
+TransitionManager="*res://src/combat/transition_manager.gd"
+# NavigationManager será adicionado quando WorldMap for registrado como autoload
+# CombatVFX e CombatAudio serão adicionados na Fase 2 (UI/Game Feel)
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/handheld/orientation=0
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[physics]
+common/physics_ticks_per_second=60
+common/physics_interpolation=true
+
+[rendering]
+textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true
+renderer/rendering_method="mobile"
