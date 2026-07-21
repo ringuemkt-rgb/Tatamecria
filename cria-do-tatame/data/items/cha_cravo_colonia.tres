@@ -1,0 +1,40 @@
+{
+  "resource_type": "ConsumableItem",
+  "id": "cha_cravo_colonia",
+  "name": "Chá de Cravo da Colônia",
+  "description": "Receita de 1953. As mulheres da colônia cultivavam cravo nos quintais do Terreiro. Restaura 15 de Gás fora de combate.",
+  "category": "consumable",
+  "subcategory": "beverage",
+  
+  "effects": {
+    "gas_restore": 15,
+    "duration_seconds": 0,
+    "out_of_combat_only": true
+  },
+  
+  "stack_size": 5,
+  "rarity": "common",
+  "value": 25,
+  
+  "lore": {
+    "origin": "Terreiro da Luta, década de 1950",
+    "cultural_significance": "As famílias japonesas e brasileiras trocavam receitas de chás medicinais. O cravo era símbolo de hospitalidade.",
+    "tekuro_quote": "Minha mãe fazia com água quente e três cravos. Dizia que cansaço entra pela boca, mas não sai."
+  },
+  
+  "visual": {
+    "sprite_path": "res://assets/items/cha_cravo.png",
+    "icon_size": "32x32",
+    "color_tint": "#8B4513"
+  },
+  
+  "audio": {
+    "consume_sfx": "res://assets/audio/sfx/drink_tea.wav"
+  },
+  
+  "production_notes": {
+    "asset_needed": true,
+    "sprite_description": "Xícara pequena de cerâmica branca com vapor sutil, vista isométrica 32x32",
+    "priority": "medium"
+  }
+}

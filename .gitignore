@@ -1,0 +1,34 @@
+```
+# Build artifacts
+*.zip
+dist/
+build/
+
+# Godot specific
+*.import
+export_presets.cfg
+.godot/
+
+# Dependencies
+node_modules/
+vendor/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+```

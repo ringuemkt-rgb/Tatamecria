@@ -1,0 +1,14 @@
+{
+  "name": "Cria do Tatame - Pressão",
+  "short_name": "Cria Tatame",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "description": "Sala oficial de produção e prévia visual de Cria do Tatame.",
+  "icons": [
+    {"src":"./assets/cosmetics/nft/patch_terreiro_raiz.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
