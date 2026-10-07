@@ -1,11 +1,11 @@
 project:
   name: NeuroJitsu Analytics
-  version: 0.1.0
+  version: 0.3.0
   language: pt-BR
 
 runtime:
   mode: synthetic
-  timezone: Asia/Shanghai
+  timezone: America/Sao_Paulo
   random_seed: 42
   persist_redacted_video: false
   raw_video_persistence: forbidden
