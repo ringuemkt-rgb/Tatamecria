@@ -1,16 +1,17 @@
 cff-version: 1.2.0
-message: "If you use NeuroJitsu Analytics, cite this software and the associated protocol."
+message: "If you use NeuroJitsu Analytics, cite this software and the associated research protocol."
 title: "NeuroJitsu Analytics"
-version: 0.1.0
-date-released: 2026-07-16
+version: 0.3.0
+date-released: 2026-10-07
 authors:
   - family-names: "Nishiuchi dos Santos"
     given-names: "Masatoshi Alan"
 license: MIT
-repository-code: "https://github.com/ringuemkt-rgb/Tatamecria/tree/neurojitsu-system-v1"
+repository-code: "https://github.com/ringuemkt-rgb/NeuroJitsu-Analytics"
 keywords:
-  - autism
+  - motor control
+  - biomechanics
   - Brazilian Jiu-Jitsu
-  - digital health
-  - pose estimation
-  - privacy-preserving analytics
+  - adapted physical activity
+  - markerless pose estimation
+  - research software
