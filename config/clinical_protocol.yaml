@@ -1,5 +1,5 @@
-protocol_name: NeuroJitsu Motor Intervention Support
-version: 0.1.0-research
+protocol_name: NeuroJitsu Motor Research Support
+version: 0.3.0-research
 
 allowed_observations:
   - active_participation
@@ -24,3 +24,5 @@ forbidden_automated_claims:
   - predicted_meltdown_time
   - emotional_state_from_camera
   - clinical_normality_from_pose
+  - autism_diagnosis
+  - autonomous_treatment_recommendation
