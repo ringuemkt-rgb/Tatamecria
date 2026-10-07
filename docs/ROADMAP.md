@@ -1,40 +1,51 @@
 # Roadmap
 
-## Marco 0 — Fundação
+## 0.3 — Academic research release
 
-- contratos Pydantic;
-- máquina de estados;
-- armazenamento criptografável;
-- audit trail;
-- dados sintéticos e relatórios determinísticos.
+- narrow public scope to motor control and biomechanics;
+- retain earlier experimental modules but move them outside the core narrative;
+- publish measurement dictionary;
+- publish laboratory validation protocol;
+- publish reproducibility and known-limitations documents;
+- prepare repository for independent academic review.
 
-## Marco 1 — Visão com adultos
+## Milestone A — Reference validation with adults
 
-- captura local;
-- redação facial;
-- MediaPipe;
-- qualidade e oclusão;
-- validação contra anotadores humanos.
+- standardized motor tasks;
+- camera calibration protocol;
+- markerless vs reference kinematics;
+- reliability and agreement analysis;
+- documented exclusion/invalidity rules.
 
-## Marco 2 — BJJ multi-pessoa
+## Milestone B — Postural-control study
 
-- Supervision + Trackers;
-- MMPose/RTMPose experimental;
-- associação pseudônima assistida;
-- dataset de técnicas com adultos.
+- select balance tasks with host laboratory;
+- compare video features with laboratory reference outcomes;
+- estimate reliability, error and missingness.
 
-## Marco 3 — Fisiologia
+## Milestone C — Grappling feasibility
 
-- integração PPG;
-- janelas padronizadas de repouso e recuperação;
-- validação contra equipamento de referência.
+- two consenting adults;
+- standing and ground tasks;
+- occlusion and identity uncertainty;
+- single- vs multi-camera comparison.
 
-## Marco 4 — Estudo silencioso
+## Milestone D — Adapted-BJJ pilot
 
-- protocolo aprovado;
-- coleta com menores sem alertas;
-- análise de viabilidade, aceitabilidade e qualidade.
+Only after technical validation and ethics approval:
 
-## Marco 5 — Suporte à decisão
+- feasibility;
+- safety;
+- adherence;
+- standardized motor outcomes;
+- complementary validated NeuroJitsu metrics.
 
-Somente após validação prospectiva, introduzir recomendações protocolizadas e revisão obrigatória do profissional.
+## Future extensions
+
+- HRV;
+- heavier pose models;
+- technique-phase models;
+- longitudinal personalized analysis;
+- multicenter replication.
+
+Future modules are not allowed to bypass the validation pathway.
