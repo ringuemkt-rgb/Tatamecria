@@ -49,7 +49,7 @@ Primary research questions include:
 - auditable storage and integrity checks;
 - privacy-first capture path;
 - local FastAPI API and Streamlit dashboard;
-- CI for Python 3.11/3.12, Ruff, mypy and pytest.
+- CI for Python 3.11/3.12, Ruff, mypy, pytest, CLI verification and synthetic end-to-end smoke test.
 
 ### Markerless vision
 
@@ -69,7 +69,7 @@ These modules are preserved because they may support future studies, but they ar
 - experimental WiFi-CSI adapter;
 - research hooks for heavier pose/action-recognition stacks.
 
-See [RESEARCH_SCOPE.md](docs/RESEARCH_SCOPE.md) for the boundary between validated software behavior and future scientific validation.
+See [RESEARCH_SCOPE.md](docs/RESEARCH_SCOPE.md) and [EXPERIMENTAL_EXTENSIONS.md](docs/EXPERIMENTAL_EXTENSIONS.md).
 
 ## Why this can be useful to a motor-neuroscience laboratory
 
@@ -85,6 +85,8 @@ A laboratory can use NeuroJitsu to test questions such as:
 - feasibility of movement analysis in grappling-specific tasks.
 
 A potential alignment with the **Laboratory of Motor Neurosciences (NEMO/UEL)** is documented in [NEMO_RESEARCH_ALIGNMENT.md](docs/NEMO_RESEARCH_ALIGNMENT.md). That document describes scientific fit only and does **not** imply institutional affiliation, endorsement or supervision.
+
+For a one-page academic summary, see [SUPERVISOR_BRIEF.md](docs/SUPERVISOR_BRIEF.md).
 
 ## Current scientific status
 
@@ -143,26 +145,31 @@ pip install -e ".[physiology]"
 pytest
 ruff check src tests
 mypy src/neurojitsu
+neurojitsu verify
+neurojitsu demo --output outputs/demo
 ```
 
-The default test suite does not require a camera, GPU, participant data or external model weights.
+The default research QA path does not require a camera, GPU, participant data or external model weights.
 
 ## Research documentation
 
-Start here:
+Recommended reading order:
 
-- [Research scope](docs/RESEARCH_SCOPE.md)
-- [Quick research workflow](docs/QUICKSTART_RESEARCH.md)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Measurement dictionary](docs/MEASUREMENT_DICTIONARY.md)
-- [Laboratory validation protocol](docs/LAB_VALIDATION_PROTOCOL.md)
-- [Validation plan](docs/VALIDATION_PLAN.md)
-- [Known limitations](docs/KNOWN_LIMITATIONS.md)
-- [Reproducibility](docs/REPRODUCIBILITY.md)
-- [Ethics and safety](docs/ETHICS_AND_SAFETY.md)
-- [Data governance](docs/DATA_GOVERNANCE.md)
-- [Potential NEMO/UEL research alignment](docs/NEMO_RESEARCH_ALIGNMENT.md)
-- [Portuguese overview](docs/README_pt-BR.md)
+1. [Supervisor brief](docs/SUPERVISOR_BRIEF.md)
+2. [Research scope](docs/RESEARCH_SCOPE.md)
+3. [Research use cases](docs/RESEARCH_USE_CASES.md)
+4. [Architecture](docs/ARCHITECTURE.md)
+5. [Measurement dictionary](docs/MEASUREMENT_DICTIONARY.md)
+6. [Laboratory validation protocol](docs/LAB_VALIDATION_PROTOCOL.md)
+7. [Validation plan](docs/VALIDATION_PLAN.md)
+8. [Known limitations](docs/KNOWN_LIMITATIONS.md)
+9. [Reproducibility](docs/REPRODUCIBILITY.md)
+10. [Ethics and safety](docs/ETHICS_AND_SAFETY.md)
+11. [Data governance](docs/DATA_GOVERNANCE.md)
+12. [Experimental extensions](docs/EXPERIMENTAL_EXTENSIONS.md)
+13. [Development history](docs/DEVELOPMENT_HISTORY.md)
+14. [Potential NEMO/UEL research alignment](docs/NEMO_RESEARCH_ALIGNMENT.md)
+15. [Portuguese overview](docs/README_pt-BR.md)
 
 ## Ethical boundaries
 
