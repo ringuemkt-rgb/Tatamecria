@@ -1,67 +1,120 @@
 # NeuroJitsu Analytics
 
-Plataforma local, modular e orientada à pesquisa para analisar sessões de Jiu-Jitsu Brasileiro adaptado por meio de métricas motoras, participação observável, fisiologia e qualidade dos dados.
+> **Research software — pre-validation. Not a medical device.**
 
-> **Estado:** MVP de pesquisa executável. O software não é instrumento diagnóstico, não prevê crises, não substitui o profissional e não deve armazenar dados reais sem criptografia, consentimento e aprovação institucional.
+NeuroJitsu Analytics is an open, local-first research platform for **motor-control and movement analysis in adapted Brazilian Jiu-Jitsu (BJJ) studies**. Its current purpose is to convert standardized motor-task recordings into transparent, auditable movement metrics while preserving data quality, privacy and human scientific oversight.
 
-## O que já funciona
+The project is designed to support research in **motor control, postural control, balance, biomechanics, motor learning and adapted physical activity**. It does **not** diagnose autism, infer emotion, predict crises, or make autonomous clinical decisions.
 
-- geração de sessões sintéticas reproduzíveis;
-- contratos Pydantic para todas as trocas entre módulos;
-- máquina de estados previsível;
-- segmentação por fases da sessão;
-- métricas transparentes de movimento, participação e HRV temporal;
-- agente de qualidade que bloqueia resultados de baixa confiança;
-- banco transacional com integridade SHA-256;
-- modo SQLCipher opcional e obrigatório para participantes reais;
-- agentes especializados de movimento, participação, qualidade e relatório;
-- relatório individual JSON + HTML com limitações explícitas;
-- API FastAPI local;
-- dashboard Streamlit em modo escuro com botão de pausa sensorial;
-- adaptador opcional para MediaPipe Tasks;
-- barramento Roboflow Supervision para `Detections`, `KeyPoints`, zonas e metadados;
-- eventos determinísticos de entrada, permanência e saída nas zonas;
-- adaptador experimental RuView/WiFi-CSI;
-- contratos whole-body para corpo, mãos, pés e pontos faciais;
-- métricas de ângulo, amplitude, trajetória, suavidade, simetria e tronco;
-- qualidade separada para corpo, mãos, pés, oclusão e frames perdidos;
-- ontologia temporal de técnica com estabilização por histerese.
+## Research focus
 
-## Motion Intelligence v2
-
-A camada avançada organiza a análise em três níveis:
+The academic core is intentionally narrow:
 
 ```text
-Tempo real: detector/pose → Supervision → Trackers → trajetórias 2D → qualidade → painel
-Referência: câmeras sincronizadas → Pose2Sim → OpenSim → cinemática 3D
-Temporal: sequências de esqueleto → MMAction2/MotionBERT → fases técnicas
+standardized motor task
+        ↓
+video / pose landmarks
+        ↓
+quality gates
+        ↓
+transparent kinematic metrics
+        ↓
+comparison with reference laboratory measures
+        ↓
+longitudinal research use
 ```
 
-As fases técnicas canônicas são:
+Primary research questions include:
 
-```text
-setup → entry → control → transition → completion → recovery
-```
+1. Are low-cost markerless metrics sufficiently reliable and valid for standardized motor tasks?
+2. How robust are those metrics to camera position, occlusion and repeated measurement?
+3. Can validated metrics complement conventional motor-control and postural-control outcomes in adapted BJJ research?
+4. After technical validation and ethics approval, can the platform be used safely in studies involving autistic children?
 
-Backends pesados ficam em serviços opcionais. O núcleo continua executável sem GPU e sem depender de um único modelo externo.
+## What is implemented
 
-## Instalação rápida
+### Research core
+
+- deterministic session/state contracts with Pydantic;
+- synthetic reproducible datasets;
+- joint angle;
+- range of motion;
+- trajectory length;
+- jerk-based movement smoothness;
+- bilateral difference;
+- trunk inclination;
+- explicit metric confidence, validity and invalidation reason;
+- quality gates for missing frames, occlusion and landmark quality;
+- local report generation (JSON + HTML);
+- auditable storage and integrity checks;
+- privacy-first capture path;
+- local FastAPI API and Streamlit dashboard;
+- CI for Python 3.11/3.12, Ruff, mypy and pytest.
+
+### Markerless vision
+
+- optional MediaPipe pose backend;
+- Supervision adapters for detections, keypoints, zones and tracking metadata;
+- single-participant workflows;
+- experimental multi-person/grappling workflows with explicit uncertainty handling.
+
+### Research extensions retained from earlier development
+
+These modules are preserved because they may support future studies, but they are **not part of the current academic core**:
+
+- HRV/RMSSD research utilities;
+- temporal technique-phase models;
+- whole-body hands/feet contracts;
+- optional local narrative agents;
+- experimental WiFi-CSI adapter;
+- research hooks for heavier pose/action-recognition stacks.
+
+See [RESEARCH_SCOPE.md](docs/RESEARCH_SCOPE.md) for the boundary between validated software behavior and future scientific validation.
+
+## Why this can be useful to a motor-neuroscience laboratory
+
+The software is most useful when paired with laboratory reference methods rather than presented as a replacement for them.
+
+A laboratory can use NeuroJitsu to test questions such as:
+
+- agreement between markerless video angles and reference kinematics;
+- agreement between video-derived postural features and force/pressure-platform measures;
+- test–retest reliability;
+- sensitivity to camera geometry and occlusion;
+- validity of low-cost longitudinal monitoring;
+- feasibility of movement analysis in grappling-specific tasks.
+
+A potential alignment with the **Laboratory of Motor Neurosciences (NEMO/UEL)** is documented in [NEMO_RESEARCH_ALIGNMENT.md](docs/NEMO_RESEARCH_ALIGNMENT.md). That document describes scientific fit only and does **not** imply institutional affiliation, endorsement or supervision.
+
+## Current scientific status
+
+| Layer | Status |
+|---|---|
+| Software unit tests | Implemented |
+| Synthetic end-to-end demo | Implemented |
+| Transparent motor metrics | Implemented |
+| Quality/invalidity metadata | Implemented |
+| Local privacy-first pipeline | Implemented |
+| Markerless pose integration | Experimental |
+| Multi-person grappling analysis | Experimental |
+| Criterion validity vs laboratory reference | **Not yet established** |
+| Reliability in autistic children | **Not yet established** |
+| Clinical validity | **Not established** |
+| Diagnostic use | **Out of scope** |
+
+## Quick start
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 python -m pip install --upgrade pip
 pip install -e ".[dev,api,dashboard]"
-```
 
-## Executar o fluxo seguro de demonstração
-
-```bash
 neurojitsu verify
 neurojitsu demo --output outputs/demo
 ```
 
-Arquivos gerados:
+Generated demonstration artifacts:
 
 ```text
 outputs/demo/NJ-DEMO-001.json
@@ -69,77 +122,22 @@ outputs/demo/NJ-DEMO-001.html
 outputs/demo/NJ-DEMO-001-agents.json
 ```
 
-## API e dashboard
+### Run API and dashboard
 
 ```bash
 uvicorn neurojitsu.api.main:app --reload
 streamlit run src/neurojitsu/dashboard/app.py
 ```
 
-Ou:
+### Optional laboratory/vision dependencies
 
 ```bash
-docker compose up --build
+pip install -e ".[vision]"
+pip install -e ".[tracking]"
+pip install -e ".[physiology]"
 ```
 
-- API: `http://localhost:8000`
-- Dashboard: `http://localhost:8501`
-
-## Instalação por capacidade
-
-```bash
-pip install -e ".[vision]"       # OpenCV, MediaPipe, Supervision
-pip install -e ".[tracking]"     # trackers/ByteTrackTracker
-pip install -e ".[physiology]"   # NeuroKit2
-pip install -e ".[agents]"       # smolagents + Transformers
-pip install -e ".[wifi]"         # RuView WebSocket/MQTT adapter
-```
-
-## Regra de segurança do banco
-
-Sem `NEUROJITSU_DB_KEY`, o sistema aceita apenas participantes marcados como sintéticos. Ao tentar registrar uma pessoa real em SQLite comum, a aplicação encerra a operação com `PermissionError`.
-
-```bash
-export NEUROJITSU_DB_KEY="uma-chave-robusta-fornecida-pelo-cofre"
-pip install -e ".[sqlcipher]"
-```
-
-A chave nunca deve ser salva no repositório.
-
-## Pipeline de câmera
-
-```text
-Frame volátil
-   ↓
-localização facial para redação visual
-   ↓
-frame redigido
-   ↓
-detecção + pose whole-body
-   ↓
-Supervision Detections/KeyPoints + Trackers + zonas
-   ↓
-landmarks + eventos + qualidade + oclusão
-   ↓
-nenhum frame original persistido
-```
-
-O backend MediaPipe exige um modelo `.task` externo, controlado por `NEUROJITSU_POSE_MODEL_PATH`. O modelo deve ser baixado de fonte oficial, versionado e validado por checksum no ambiente de pesquisa.
-
-## Arquitetura
-
-Consulte:
-
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
-- [`docs/MOTION_ANALYSIS_STACK.md`](docs/MOTION_ANALYSIS_STACK.md)
-- [`docs/SUPERVISION_INTEGRATION.md`](docs/SUPERVISION_INTEGRATION.md)
-- [`docs/MOTION_REPOSITORY_REVIEW.md`](docs/MOTION_REPOSITORY_REVIEW.md)
-- [`docs/REPOSITORY_REVIEW.md`](docs/REPOSITORY_REVIEW.md)
-- [`docs/DATA_GOVERNANCE.md`](docs/DATA_GOVERNANCE.md)
-- [`docs/VALIDATION_PLAN.md`](docs/VALIDATION_PLAN.md)
-- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
-
-## Testes
+## Test suite
 
 ```bash
 pytest
@@ -147,6 +145,54 @@ ruff check src tests
 mypy src/neurojitsu
 ```
 
-## Licença
+The default test suite does not require a camera, GPU, participant data or external model weights.
 
-MIT para o código próprio. Pesos de modelos, datasets e dependências conservam suas próprias licenças. Modelos experimentais ou pesos com restrições não devem ser redistribuídos automaticamente com o NeuroJitsu.
+## Research documentation
+
+Start here:
+
+- [Research scope](docs/RESEARCH_SCOPE.md)
+- [Quick research workflow](docs/QUICKSTART_RESEARCH.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Measurement dictionary](docs/MEASUREMENT_DICTIONARY.md)
+- [Laboratory validation protocol](docs/LAB_VALIDATION_PROTOCOL.md)
+- [Validation plan](docs/VALIDATION_PLAN.md)
+- [Known limitations](docs/KNOWN_LIMITATIONS.md)
+- [Reproducibility](docs/REPRODUCIBILITY.md)
+- [Ethics and safety](docs/ETHICS_AND_SAFETY.md)
+- [Data governance](docs/DATA_GOVERNANCE.md)
+- [Potential NEMO/UEL research alignment](docs/NEMO_RESEARCH_ALIGNMENT.md)
+- [Portuguese overview](docs/README_pt-BR.md)
+
+## Ethical boundaries
+
+NeuroJitsu must not be used to:
+
+- diagnose autism or any health condition;
+- infer emotion from faces;
+- predict meltdowns or distress episodes;
+- rank children by a hidden “normality” score;
+- replace a clinician, researcher or coach;
+- collect identifiable child data before ethics approval and institutional data-governance review.
+
+The system is a **measurement research tool**, not an autonomous evaluator.
+
+## Data protection
+
+- raw video persistence is disabled by default;
+- real-participant storage requires encrypted storage;
+- identity mapping is separated from research data;
+- direct facial recognition is prohibited;
+- every research deployment must define consent/assent, retention, access and deletion rules before data collection.
+
+## Repository history
+
+This academic release consolidates the NeuroJitsu work previously developed inside the `Tatamecria` repository and narrows the public-facing scientific focus to motor-control research. Earlier experimental modules are retained but clearly labeled.
+
+## Citation
+
+See [CITATION.cff](CITATION.cff).
+
+## License
+
+MIT for original source code. External model weights, datasets and dependencies retain their own licenses.
