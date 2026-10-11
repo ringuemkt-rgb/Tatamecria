@@ -139,6 +139,7 @@ class ReportPayload(BaseModel):
     generated_at: datetime
     quality: QualitySummary
     phase_metrics: dict[str, dict[str, float | int | str | None]]
+    measurement_metrics: dict[str, dict[str, float | int | str | None]] = Field(default_factory=dict)
     observations: list[str]
     limitations: list[str]
     professional_review_required: bool = True

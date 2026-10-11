@@ -109,7 +109,7 @@ def frames_to_windows(
         for f in frames
     ):
         raise ValueError("Mixed participants or sessions are prohibited")
-    if any(a.timestamp >= b.timestamp for a, b in zip(frames, frames[1:])):
+    if any(a.timestamp >= b.timestamp for a, b in zip(frames, frames[1:], strict=False)):
         raise ValueError("Frame timestamps must be strictly increasing")
 
     windows: list[SessionWindow] = []
@@ -163,7 +163,7 @@ def frames_to_windows(
         # This is cumulative image-normalized displacement, NOT CoP or physical distance.
         path = [
             hypot(b[0] - a[0], b[1] - a[1])
-            for a, b in zip(pelvis_points, pelvis_points[1:])
+            for a, b in zip(pelvis_points, pelvis_points[1:], strict=False)
         ]
         path_valid = identity_ok and len(pelvis_points) >= 3 and (
             len(pelvis_points) / len(chunk) >= 0.70

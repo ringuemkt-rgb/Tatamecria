@@ -6,6 +6,7 @@ import json
 
 import streamlit as st
 
+from neurojitsu.analysis.longitudinal import longitudinal_summary
 from neurojitsu.settings import load_settings
 from neurojitsu.storage.database import Database
 
@@ -101,3 +102,36 @@ for limitation in payload.get("limitations", []):
     st.write(f"• {limitation}")
 
 st.warning("Relatório descritivo. Revisão profissional obrigatória antes de uso científico ou clínico.")
+
+
+st.subheader("Série temporal de uma tarefa padronizada")
+windows = database.load_windows(selected)
+task_id = str(windows[0].metadata.get("task_id", "")) if windows else ""
+if not task_id:
+    st.info("Nenhuma tarefa de captura padronizada registrada nesta sessão.")
+else:
+    choices = sorted({m.name for w in windows for m in w.metrics if m.valid})
+    if choices:
+        metric_name = st.selectbox("Métrica exploratória", choices)
+        summary = longitudinal_summary(
+            database, str(windows[0].participant_id), task_id, metric_name
+        )
+        compatible = [
+            {
+                "date": str(r["timestamp"])[:10],
+                "value": r["value"],
+                "session": r["session_id"],
+            }
+            for r in summary["sessions"]
+            if r["comparable_to_baseline"] and r["value"] is not None
+        ]
+        if len(compatible) > 1:
+            st.line_chart(compatible, x="date", y="value")
+        st.dataframe(compatible, hide_index=True, use_container_width=True)
+        st.caption(summary["notice"])
+        st.warning(
+            "Variáveis exploratórias pré-validação. Não medem autismo, desenvolvimento "
+            "clínico, eficácia de tratamento nem centro de pressão."
+        )
+    else:
+        st.info("Nenhuma métrica válida nesta sessão.")
