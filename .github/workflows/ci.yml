@@ -39,3 +39,8 @@ jobs:
           test -s /tmp/neurojitsu-demo/NJ-DEMO-001.json
           test -s /tmp/neurojitsu-demo/NJ-DEMO-001.html
           test -s /tmp/neurojitsu-demo/NJ-DEMO-001-agents.json
+      - name: Synthetic lab longitudinal demonstration
+        run: |
+          python scripts/run_lab_demo.py
+          test -s outputs/lab-demo/lab_longitudinal.json
+          test -s outputs/lab-demo/lab_longitudinal.html

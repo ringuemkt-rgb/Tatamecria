@@ -99,6 +99,8 @@ class PoseFrame(BaseModel):
     participant_id: str
     timestamp: datetime
     frame_index: int = Field(ge=0)
+    frame_width: int | None = Field(default=None, gt=0)
+    frame_height: int | None = Field(default=None, gt=0)
     landmarks_xyzc: list[tuple[float, float, float, float]]
     valid_landmark_ratio: float = Field(ge=0.0, le=1.0)
     tracking_confidence: float = Field(ge=0.0, le=1.0)
@@ -137,6 +139,7 @@ class ReportPayload(BaseModel):
     generated_at: datetime
     quality: QualitySummary
     phase_metrics: dict[str, dict[str, float | int | str | None]]
+    measurement_metrics: dict[str, dict[str, float | int | str | None]] = Field(default_factory=dict)
     observations: list[str]
     limitations: list[str]
     professional_review_required: bool = True

@@ -203,3 +203,25 @@ See [CITATION.cff](CITATION.cff).
 ## License
 
 MIT for original source code. External model weights, datasets and dependencies retain their own licenses.
+
+
+## Laboratory-ready technical demonstration (October 2026)
+
+The academic prototype lives on branch neurojitsu-lab-demo-2026-10.
+It is **pre-validation research software**, not a diagnostic or clinical tool.
+
+First install the package with its development, API and dashboard extras.
+Then run:
+
+    python scripts/run_lab_demo.py
+
+This creates four synthetic adult-session records, reproducible movement
+metrics and an HTML/JSON longitudinal comparison in outputs/lab-demo.
+It does not use a real camera or child data.
+
+For the optional supervised, consenting-adult camera pilot, refer to
+docs/LAB_PRESENTATION.md. Explicit consent, operator supervision,
+a local approved model file and SQLCipher encryption are required.
+
+Children must NOT be recorded as part of this demonstration; child
+research requires an approved ethics protocol and age-appropriate safeguards.

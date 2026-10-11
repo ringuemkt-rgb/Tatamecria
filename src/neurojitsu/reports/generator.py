@@ -48,6 +48,12 @@ th, td { border: 1px solid #444; padding: .6rem; text-align: left; }
 </tr>
 {% endfor %}
 </table>
+<h2>Medidas descritivas: pesquisa pré-validação</h2>
+<table><tr><th>Métrica</th><th>Valor médio</th><th>Unidade</th><th>Janelas</th></tr>
+{% for name, values in report.measurement_metrics.items() %}
+<tr><td>{{ name }}</td><td>{{ values.value }}</td><td>{{ values.unit }}</td><td>{{ values.count }}</td></tr>
+{% endfor %}
+</table>
 <h2>Observações objetivas</h2>
 <ul>{% for item in report.observations %}<li>{{ item }}</li>{% endfor %}</ul>
 <h2>Limitações</h2>
@@ -91,6 +97,22 @@ class ReportGenerator:
             }
             for phase, group in by_phase.items()
         }
+        measured: dict[str, list[tuple[float, str]]] = {}
+        for window in windows:
+            if window.identity_status.value != "confirmed":
+                continue
+            for metric in window.metrics:
+                if metric.valid and metric.value is not None:
+                    measured.setdefault(metric.name, []).append((metric.value, metric.unit))
+        measurement_metrics: dict[str, dict[str, float | int | str | None]] = {}
+        for name, pairs in measured.items():
+            units = {unit for _, unit in pairs}
+            if len(units) == 1:
+                measurement_metrics[name] = {
+                    "value": float(fmean(value for value, _ in pairs)),
+                    "unit": next(iter(units)),
+                    "count": len(pairs),
+                }
         observations = [
             f"Foram analisadas {len(windows)} janelas temporais estruturadas.",
             "As métricas foram agregadas apenas quando marcadas como válidas.",
@@ -106,6 +128,7 @@ class ReportGenerator:
             generated_at=datetime.now(UTC),
             quality=quality,
             phase_metrics=phase_metrics,
+            measurement_metrics=measurement_metrics,
             observations=observations,
             limitations=limitations,
         )
