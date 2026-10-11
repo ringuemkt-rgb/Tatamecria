@@ -7,8 +7,8 @@ from datetime import UTC, datetime, timedelta
 
 from neurojitsu.capture.source import FrameSource, SyntheticFrameSource
 from neurojitsu.core.models import IdentityStatus, PoseFrame
-from neurojitsu.privacy.redactor import FaceRedactor
 from neurojitsu.privacy.consent import AdultCaptureConsent, AdultConsentGuard
+from neurojitsu.privacy.redactor import FaceRedactor
 from neurojitsu.vision.base import PoseBackend
 
 

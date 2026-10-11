@@ -4,7 +4,7 @@ from __future__ import annotations
 from statistics import mean
 from typing import Any
 
-from neurojitsu.core.models import IdentityStatus, SessionWindow
+from neurojitsu.core.models import IdentityStatus
 from neurojitsu.storage.database import Database
 
 
