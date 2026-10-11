@@ -34,3 +34,30 @@ class ConsentGuard:
     def require_capture_permission(consent: ConsentRecord) -> None:
         if not consent.allows_capture():
             raise PermissionError("Capture is not permitted by the current consent record")
+
+
+@dataclass(frozen=True, slots=True)
+class AdultCaptureConsent:
+    """Explicit permission for a consenting adult research demonstrator only."""
+
+    participant_id: str
+    is_adult: bool
+    informed_consent: bool
+    video_processing_allowed: bool
+    valid_until: date | None = None
+
+    def allows_capture(self, today: date | None = None) -> bool:
+        current = today or date.today()
+        return (
+            self.is_adult
+            and self.informed_consent
+            and self.video_processing_allowed
+            and (self.valid_until is None or current <= self.valid_until)
+        )
+
+
+class AdultConsentGuard:
+    @staticmethod
+    def require_capture_permission(consent: AdultCaptureConsent, participant_id: str) -> None:
+        if consent.participant_id != participant_id or not consent.allows_capture():
+            raise PermissionError("Adult demonstration capture was not authorized")
